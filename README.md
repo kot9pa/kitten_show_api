@@ -1,11 +1,11 @@
-# Сборка приложения:
+# Сборка приложения
 1. Клонировать репозиторий и перейти в корень приложения
 2. Запустить сборку образа приложения:  
 `docker build -t app_kitten_show .`  
 3. Запустить контейнеры БД и приложения (веб-сервер)  
 `docker compose up -d`
 
-# REST API:
+# REST API
 Web-server по адресу http://localhost:8080  
 Swagger UI http://localhost:8080/docs  
 
@@ -13,10 +13,10 @@ Swagger UI http://localhost:8080/docs
 `GET localhost:8080/api/v1/breeds`
 
 Пример Response:  
-{
+`{
     "title": "Абиссинская",
     "id": 1
-}
+}`
 
 Таблица breeds содержит список пород, загруженных через миграцию Alembic  
 `migration\versions\2024-10-04_initial_revision.py`
@@ -27,10 +27,12 @@ Swagger UI http://localhost:8080/docs
 3. Получение списка котят определенной породы по фильтру  
 `GET localhost:8080/api/v1/kittens/by_breed/{id}`
 
-Доступна фильтрация по ID породы
+Пример: `GET localhost:8080/api/v1/kittens/by_breed/1`
 
 4. Получение подробной информации о котенке  
 `GET localhost:8080/api/v1/kittens/{id}`
+
+Пример: `GET localhost:8080/api/v1/kittens/1`
 
 5. Добавление информации о котенке  
 `POST localhost:8080/api/v1/kittens`
@@ -45,8 +47,10 @@ Swagger UI http://localhost:8080/docs
 }`
 
 6. Изменение информации о котенке (полное и частичное)  
-`PUT localhost:8080/api/v1/kittens/{id}`
+`PUT localhost:8080/api/v1/kittens/{id}`  
 `PATCH localhost:8080/api/v1/kittens/{id}`
+
+Пример: `PATCH localhost:8080/api/v1/kittens/1`
 
 Пример Body:  
 `{
@@ -58,5 +62,14 @@ Swagger UI http://localhost:8080/docs
 }`
 
 7. Удаление информации о котенке (всех или по Id)  
-`DELETE localhost:8080/api/v1/kittens/`
+`DELETE localhost:8080/api/v1/kittens/`  
 `DELETE localhost:8080/api/v1/kittens/{id}`
+
+Пример: `DELETE localhost:8080/api/v1/kittens/1`
+
+# Тестирование
+В папке tests лежит файл для импорта в Postman (или аналоги)  
+`tests\kitten show.postman_collection.json`
+
+После импорта будет доступна возможность запустить API тесты  
+![image](https://github.com/user-attachments/assets/64753e7f-56db-4ad0-99e5-699972767929)
