@@ -18,7 +18,7 @@ class DbSettings(BaseModel):
 
 class Settings(BaseSettings):
     api_v1_prefix: str = "/api/v1"
-    db_echo: bool = True
+    db_echo: bool = False
     db: DbSettings = DbSettings(echo=db_echo)
 
 
