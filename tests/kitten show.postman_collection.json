@@ -1,0 +1,892 @@
+{
+	"info": {
+		"_postman_id": "53b6e686-1749-4300-b57f-57f7f600d622",
+		"name": "kitten show",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32462526"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "kittens",
+					"item": [
+						{
+							"name": "Create kitten",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 201 CREATED\r",
+											"pm.test(\"Status code is 201\", () => {\r",
+											"  pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('api_test_kitten_id', responseJSON.id);\r",
+											"\r",
+											"// check that 'api_test_kitten_id' from environment & response are equal\r",
+											"pm.test(\"Response contains 'id' property\", () => {\r",
+											"  pm.expect(pm.environment.get('api_test_kitten_id')).to.eql(parseInt(responseJSON.id));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Kitten name 1\",\r\n    \"age\": 1,\r\n    \"color\": \"Kitten color 1\",\r\n    \"breed_id\": 1,\r\n    \"description\": \"Kitten description 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню создано",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"My menu 1\",\r\n    \"description\": \"My menu description 1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus"
+											]
+										}
+									},
+									"code": 201,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"id\": \"9a5bce5f-4462-4d12-a66c-d59584b19ee8\",\r\n    \"title\": \"My menu 1\",\r\n    \"description\": \"My menu description 1\",\r\n    \"submenus_count\": 0,\r\n    \"dishes_count\": 0\r\n}"
+								}
+							]
+						},
+						{
+							"name": "Get list kittens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Выдача списка меню",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "[\r\n    {\r\n        \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n        \"title\": \"My menu 1\",\r\n        \"description\": \"My menu description 1\",\r\n        \"submenus_count\": 0,\r\n        \"dishes_count\": 0\r\n    }\r\n]"
+								}
+							]
+						},
+						{
+							"name": "Get kitten by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens/{{api_test_kitten_id}}",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens",
+										"{{api_test_kitten_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n    \"title\": \"My menu 1\",\r\n    \"description\": \"My menu description 1\",\r\n    \"submenus_count\": 0,\r\n    \"dishes_count\": 0\r\n}"
+								},
+								{
+									"name": "Меню не найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"menu not found\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "Get kittens by breed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens/by_breed/{{api_test_breed_id}}/",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens",
+										"by_breed",
+										"{{api_test_breed_id}}",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n    \"title\": \"My menu 1\",\r\n    \"description\": \"My menu description 1\",\r\n    \"submenus_count\": 0,\r\n    \"dishes_count\": 0\r\n}"
+								},
+								{
+									"name": "Меню не найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"menu not found\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "Update kitten by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"My updated Kitten name 1\",\r\n    \"age\": 2,\r\n    \"color\": \"My updated Kitten color 1\",\r\n    \"breed_id\": 2,\r\n    \"description\": \"My updated Kitten description 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens/{{api_test_kitten_id}}",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens",
+										"{{api_test_kitten_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню обновлено",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"My updated menu 1\",\r\n    \"description\": \"My updated menu description 1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n    \"title\": \"My updated menu 1\",\r\n    \"description\": \"My updated menu description 1\",\r\n    \"submenus_count\": 0,\r\n    \"dishes_count\": 0\r\n}"
+								},
+								{
+									"name": "Меню не найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"menu not found\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "Partial update kitten by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\": \"My partial updated Kitten description 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens/{{api_test_kitten_id}}",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens",
+										"{{api_test_kitten_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню обновлено",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"My updated menu 1\",\r\n    \"description\": \"My updated menu description 1\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n    \"title\": \"My updated menu 1\",\r\n    \"description\": \"My updated menu description 1\",\r\n    \"submenus_count\": 0,\r\n    \"dishes_count\": 0\r\n}"
+								},
+								{
+									"name": "Меню не найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"menu not found\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete kitten by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens/{{api_test_kitten_id}}",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens",
+										"{{api_test_kitten_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню удалено",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"status\": true,\r\n    \"message\": \"The menu has been deleted\"\r\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete all kittens",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/kittens/",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"kittens",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню удалено",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"status\": true,\r\n    \"message\": \"The menu has been deleted\"\r\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// check that response headers 'content-type' is 'application/json'",
+									"pm.test(\"Content-Type header is application/json\", () => {",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});"
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "breeds",
+					"item": [
+						{
+							"name": "Get list breeds",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/breeds",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"breeds"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Выдача списка меню",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "[\r\n    {\r\n        \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n        \"title\": \"My menu 1\",\r\n        \"description\": \"My menu description 1\",\r\n        \"submenus_count\": 0,\r\n        \"dishes_count\": 0\r\n    }\r\n]"
+								}
+							]
+						},
+						{
+							"name": "Get breed by id",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJSON = pm.response.json();\r",
+											"\r",
+											"// check that response status HTTP 200 OK\r",
+											"pm.test(\"Success answer\", function() {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_URL}}/api/v1/breeds/{{api_test_breed_id}}",
+									"host": [
+										"{{LOCAL_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"breeds",
+										"{{api_test_breed_id}}"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Меню найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"id\": \"a2eb416c-2245-4526-bb4b-6343d5c5016f\",\r\n    \"title\": \"My menu 1\",\r\n    \"description\": \"My menu description 1\",\r\n    \"submenus_count\": 0,\r\n    \"dishes_count\": 0\r\n}"
+								},
+								{
+									"name": "Меню не найдено",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{LOCAL_URL}}/api/v1/menus/{{api_test_menu_id}}",
+											"host": [
+												"{{LOCAL_URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"menus",
+												"{{api_test_menu_id}}"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "Text",
+									"header": [],
+									"cookie": [],
+									"body": "{\r\n    \"detail\": \"menu not found\"\r\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"// check that response headers 'content-type' is 'application/json'",
+									"pm.test(\"Content-Type header is application/json\", () => {",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});"
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
