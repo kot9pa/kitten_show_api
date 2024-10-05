@@ -66,3 +66,10 @@ Swagger UI http://localhost:8080/docs
 `DELETE localhost:8080/api/v1/kittens/{id}`
 
 Пример: `DELETE localhost:8080/api/v1/kittens/1`
+
+# Тестирование
+В папке tests лежит файл для импорта в Postman (или аналоги)  
+`tests\kitten show.postman_collection.json`
+
+После импорта будет доступна возможность запустить API тесты  
+![image](https://github.com/user-attachments/assets/64753e7f-56db-4ad0-99e5-699972767929)
