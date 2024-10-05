@@ -34,7 +34,7 @@ Swagger UI http://localhost:8080/docs
 
 Пример: `GET localhost:8080/api/v1/kittens/1`
 
-6. Добавление информации о котенке  
+5. Добавление информации о котенке  
 `POST localhost:8080/api/v1/kittens`
 
 Пример Body:  
